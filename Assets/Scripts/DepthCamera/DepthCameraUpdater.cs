@@ -11,7 +11,7 @@ public class DepthCameraUpdater : MonoBehaviour
     private Camera thisCamera;
     private Matrix4x4 camMatrix;
 
-    private float errorFactor = 0.1f;
+    private float errorFactor = 0.05f;
 
     void Start()
     {

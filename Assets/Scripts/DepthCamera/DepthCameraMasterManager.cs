@@ -13,6 +13,9 @@ public class DepthCameraMasterManager : MonoBehaviour
     [SerializeField]
     private DepthCameraVisionManager inVisionObjectsManager;
 
+    [SerializeField]
+    private DepthCameraConstraintsManager constraints;
+
     private bool isCameraActive, isCameraPreview;
 
     private void Start()
@@ -46,6 +49,7 @@ public class DepthCameraMasterManager : MonoBehaviour
 
         shaderUpdater.ActivateCamera();
         inVisionObjectsManager.NotifyCameraIsActivated();
+        constraints.DeactivateConstraint();
         isCameraActive = true;
     }
 
@@ -53,6 +57,7 @@ public class DepthCameraMasterManager : MonoBehaviour
     {
         shaderUpdater.DeactivateCamera();
         inVisionObjectsManager.NotifyCameraIsDeactivated();
+        constraints.ActivateConstraint();
         isCameraActive = false;
     }
 
@@ -60,6 +65,7 @@ public class DepthCameraMasterManager : MonoBehaviour
     {
         shaderUpdater.DeactivateCamera();
         inVisionObjectsManager.NotifyCameraIsDeactivated();
+        constraints.ActivateConstraint();
         isCameraActive = false;
 
         shaderUpdater.ActivatePreviewCamera();
