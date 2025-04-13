@@ -27,7 +27,7 @@ public class DepthCameraMasterManager : MonoBehaviour
     private float recordedTime;
     private float recordTime;
 
-    private float recordInterval = 1.0f/30.0f;
+    private float recordInterval = 1.0f/60.0f;
 
     private bool isCameraActive, isCameraPreview, isCameraRecording;
 
