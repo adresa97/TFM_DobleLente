@@ -36,19 +36,19 @@ public class DepthCameraDebugWindow : EditorWindow
         EditorGUILayout.LabelField("Selecciona el evento a mandar");
         if (GUILayout.Button("Activar Camara"))
         {
-            if (depthCameraEvents != null) depthCameraEvents.Emit(new ActivateCameraEvent());
+            if (depthCameraEvents != null) depthCameraEvents.Emit(new StopRecordingEvent());
         }
         if (GUILayout.Button("Desactivar Camara"))
         {
-            if (depthCameraEvents != null) depthCameraEvents.Emit(new DeactivateCameraEvent());
+            if (depthCameraEvents != null) depthCameraEvents.Emit(new ForceStopReplayEvent());
         }
         if (GUILayout.Button("Activar Preview"))
         {
-            if (depthCameraEvents != null) depthCameraEvents.Emit(new ActivatePreviewCameraEvent());
+            if (depthCameraEvents != null) depthCameraEvents.Emit(new InitiatePreviewEvent());
         }
         if (GUILayout.Button("Desactivar Preview"))
         {
-            if (depthCameraEvents != null) depthCameraEvents.Emit(new DeactivatePreviewCameraEvent());
+            if (depthCameraEvents != null) depthCameraEvents.Emit(new CancelPreviewEvent());
         }
     }
 }

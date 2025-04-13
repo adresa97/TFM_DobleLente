@@ -5,25 +5,45 @@ using UnityEngine;
 public class DepthCameraVisionManager : MonoBehaviour
 {
     private List<OneWorldObjectMaterialUpdater> objectsInVision;
+    private List<OneWorldObjectMaterialUpdater> objectsViewedInRecording;
 
-    private bool isCameraActive;
+    private bool isCameraRecording;
 
     private void Start()
     {
         objectsInVision = new List<OneWorldObjectMaterialUpdater>();
-        isCameraActive = false;
+        objectsViewedInRecording = new List<OneWorldObjectMaterialUpdater>();
+        isCameraRecording = false;
     }
 
-    public void NotifyCameraIsActivated()
+    public void NotifyCameraIsRecording()
     {
-        objectsInVision.ForEach((obj) => obj.SetObjectActive());
-        isCameraActive = true;
+        objectsInVision.ForEach((obj) => objectsViewedInRecording.Add(obj));
+        isCameraRecording = true;
+    }
+
+    public void NotifyCameraIsReplaying()
+    {
+        isCameraRecording = false;
     }
 
     public void NotifyCameraIsDeactivated()
     {
-        objectsInVision.ForEach((obj) => obj.SetObjectInactive());
-        isCameraActive = false;
+        if (objectsViewedInRecording.Count > 0)
+        {
+            objectsViewedInRecording.ForEach((obj) => obj.ResetMap());
+            objectsViewedInRecording.Clear();
+        }
+    }
+
+    public void NotifyObjectsRecord(float timeStamp, Vector3 camPosition)
+    {
+        objectsInVision.ForEach((obj) => obj.RecordState(timeStamp, camPosition));
+    }
+
+    public void NotifyObjectsReplay(float timeStamp)
+    {
+        objectsViewedInRecording.ForEach((obj) => obj.ReplayState(timeStamp));
     }
 
     public void ObjectEntered(OneWorldObjectMaterialUpdater obj)
@@ -31,7 +51,7 @@ public class DepthCameraVisionManager : MonoBehaviour
         if (!objectsInVision.Contains(obj))
         {
             objectsInVision.Add(obj);
-            if (isCameraActive) obj.SetObjectActive();
+            if (isCameraRecording) objectsViewedInRecording.Add(obj);
         }
     }
 
@@ -40,7 +60,6 @@ public class DepthCameraVisionManager : MonoBehaviour
         if (objectsInVision.Contains(obj))
         {
             objectsInVision.Remove(obj);
-            if (isCameraActive) obj.SetObjectInactive();
         }
     }
 }

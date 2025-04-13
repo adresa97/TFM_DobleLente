@@ -1,19 +1,44 @@
-public class ActivateCameraEvent
+public class InitiatePreviewEvent
 {
-    public ActivateCameraEvent() { }
+    public InitiatePreviewEvent() { }
 }
 
-public class DeactivateCameraEvent
+public class CancelPreviewEvent
 {
-    public DeactivateCameraEvent() { }
+    public CancelPreviewEvent() { }
 }
 
-public class ActivatePreviewCameraEvent
+public class InitiateRecordingEvent
 {
-    public ActivatePreviewCameraEvent() { }
+    public InitiateRecordingEvent() { }
 }
 
-public class DeactivatePreviewCameraEvent
+public class StopRecordingEvent
 {
-    public DeactivatePreviewCameraEvent() { }
+    public StopRecordingEvent() { }
+}
+
+public class ForceStopReplayEvent
+{
+    public ForceStopReplayEvent() { }
+}
+
+public class NotifyRecordHasStopEvent
+{
+    public NotifyRecordHasStopEvent() { }
+}
+
+public class NotifyReplayHasStopEvent
+{
+    public NotifyReplayHasStopEvent() { }
+}
+
+public class ActivatePreviewCameraUIEvent
+{
+    public ActivatePreviewCameraUIEvent() { }
+}
+
+public class DeactivatePreviewCameraUIEvent
+{
+    public DeactivatePreviewCameraUIEvent() { }
 }

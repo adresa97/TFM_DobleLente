@@ -6,26 +6,25 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private GameEvents depthCameraEvents;
+    private GameEvents UIEvents;
 
     [SerializeField]
     private GameObject previewPanel;
 
     private void OnEnable()
     {
-        depthCameraEvents.AddListener(DepthCameraEventsCallback);
+        UIEvents.AddListener(UIEventsCallback);
     }
 
     private void OnDisable()
     {
-        depthCameraEvents.RemoveListener(DepthCameraEventsCallback);
+        UIEvents.RemoveListener(UIEventsCallback);
     }
 
-    private void DepthCameraEventsCallback(object data)
+    private void UIEventsCallback(object data)
     {
-        if (data is ActivatePreviewCameraEvent) ActivatePreviewPanel();
-        else if (data is DeactivatePreviewCameraEvent) DeactivatePreviewPanel();
-        else if (data is ActivateCameraEvent) DeactivatePreviewPanel();
+        if (data is ActivatePreviewCameraUIEvent) ActivatePreviewPanel();
+        else if (data is DeactivatePreviewCameraUIEvent) DeactivatePreviewPanel();
     }
 
     private void ActivatePreviewPanel()

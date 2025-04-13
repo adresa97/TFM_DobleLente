@@ -63,6 +63,10 @@ public class InputManager : MonoBehaviour
         {
             rotateDirection = Vector2.zero;
         }
+        else if (inputDirection != rotateDirection)
+        {
+            rotateDirection = inputDirection;
+        }
 
         inputEvents.Emit(new InputRotationEvent(rotateDirection));
     }

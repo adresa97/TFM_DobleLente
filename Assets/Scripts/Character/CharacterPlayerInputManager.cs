@@ -8,7 +8,13 @@ public class CharacterPlayerInputManager : MonoBehaviour
     private GameEvents inputEvents;
 
     [SerializeField]
+    private GameEvents characterPlayerInputEvents;
+
+    [SerializeField]
     private GameEvents depthCameraEvents;
+
+    [SerializeField]
+    private GameEvents UIEvents;
 
     [SerializeField]
     private CharacterCamerasManager playerCamera;
@@ -35,11 +41,13 @@ public class CharacterPlayerInputManager : MonoBehaviour
     private void OnEnable()
     {
         inputEvents.AddListener(InputEventsCallback);
+        characterPlayerInputEvents.AddListener(CharacterPlayerInputEventsCallback);
     }
 
     private void OnDisable()
     {
         inputEvents.RemoveListener(InputEventsCallback);
+        characterPlayerInputEvents.AddListener(CharacterPlayerInputEventsCallback);
     }
 
     private void InputEventsCallback(object data)
@@ -52,6 +60,12 @@ public class CharacterPlayerInputManager : MonoBehaviour
         else if (data is InputPreviewEvent) TogglePreviewMode();
         else if (data is InputStartRecordingEvent) StartRecording();
         else if (data is InputStopRecordingEvent) StopRecording();
+    }
+
+    private void CharacterPlayerInputEventsCallback(object data)
+    {
+        if (data is NotifyReplayHasStopEvent) isPlaying = false;
+        else if (data is NotifyRecordHasStopEvent) StopRecordingCameraMode();
     }
 
     public Vector2 GetMovementAxis() { return moveAxis; }
@@ -73,20 +87,21 @@ public class CharacterPlayerInputManager : MonoBehaviour
         {
             if (isPlaying)
             {
-                depthCameraEvents.Emit(new DeactivateCameraEvent());
-                isPlaying = false;
+                depthCameraEvents.Emit(new ForceStopReplayEvent());
             }
             else
             {
                 playerCamera.SetPreviewCamera();
-                depthCameraEvents.Emit(new ActivatePreviewCameraEvent());
+                depthCameraEvents.Emit(new InitiatePreviewEvent());
+                UIEvents.Emit(new ActivatePreviewCameraUIEvent());
                 isPreviewMode = true;
             }
         }
         else if (!isRecording)
         {
             playerCamera.SetRealCamera();
-            depthCameraEvents.Emit(new DeactivatePreviewCameraEvent());
+            depthCameraEvents.Emit(new CancelPreviewEvent());
+            UIEvents.Emit(new DeactivatePreviewCameraUIEvent());
             isPreviewMode = false;
         }
     }
@@ -95,19 +110,26 @@ public class CharacterPlayerInputManager : MonoBehaviour
     {
         if (isPreviewMode)
         {
+            depthCameraEvents.Emit(new InitiateRecordingEvent());
+            isPreviewMode = false;
             isRecording = true;
         }
     }
 
     private void StopRecording()
     {
-        if (isRecording && isPreviewMode)
+        if (isRecording)
         {
-            playerCamera.SetRealCamera();
-            depthCameraEvents.Emit(new ActivateCameraEvent());
-            isRecording = false;
-            isPreviewMode = false;
-            isPlaying = true;
+            //StopRecordingCameraMode();
+            depthCameraEvents.Emit(new StopRecordingEvent());
         }
+    }
+
+    private void StopRecordingCameraMode()
+    {
+        playerCamera.SetRealCamera();
+        UIEvents.Emit(new DeactivatePreviewCameraUIEvent());
+        isRecording = false;
+        isPlaying = true;
     }
 }

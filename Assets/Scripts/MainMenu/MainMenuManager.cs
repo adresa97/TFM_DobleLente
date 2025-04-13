@@ -27,7 +27,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void StartGame()
     {
-        Utils.ChangeScene(Utils.Scenes.GAME);
+        //Utils.ChangeScene(Utils.Scenes.GAME);
+        Utils.ChangeScene(Utils.Scenes.TEST);
     }
 
     private void OpenOptions()

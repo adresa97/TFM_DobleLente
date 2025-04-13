@@ -185,7 +185,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
+                    "name": "down",
                     "id": "40a44874-2d99-4c7c-8edf-09934aa468ed",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
@@ -196,7 +196,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Down",
+                    "name": "up",
                     "id": "c2665aa2-deea-4dc9-9b78-df595e1e7035",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
@@ -240,7 +240,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
+                    "name": "down",
                     "id": "9373fb88-8080-4c0b-bb8f-85df654711b2",
                     "path": "<Gamepad>/dpad/down",
                     "interactions": "",
@@ -251,7 +251,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Down",
+                    "name": "up",
                     "id": "937b8922-5a5a-4ecd-88e7-61d29a8445e8",
                     "path": "<Gamepad>/dpad/up",
                     "interactions": "",
@@ -431,7 +431,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "95ffdacb-ff9f-4207-ac2e-34ce8392074e",
+                    "id": "6161a9b7-cebe-4521-ab1b-8e1e439d964f",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
@@ -445,7 +445,7 @@
                     "id": "6b5f7e44-2623-48d3-8dcc-8ab54d5d51e8",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "groups": "MouseKeyboard",
                     "action": "Rotation",
                     "isComposite": false,
