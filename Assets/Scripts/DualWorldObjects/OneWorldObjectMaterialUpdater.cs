@@ -15,6 +15,8 @@ public class OneWorldObjectMaterialUpdater : MonoBehaviour
     private Transform[] visionPoints;
     private Dictionary<float, bool> isActiveMap;
 
+    private bool isActive;
+
     private LayerMask raycastLayerMask;
 
     private MaterialPropertyBlock dualWorldMaterial;
@@ -24,6 +26,8 @@ public class OneWorldObjectMaterialUpdater : MonoBehaviour
         dualWorldMaterial = new MaterialPropertyBlock();
         isActiveMap = new Dictionary<float, bool>();
         isActiveMap.Clear();
+
+        isActive = false;
 
         raycastLayerMask =~ LayerMask.GetMask("Player");
 
@@ -72,22 +76,22 @@ public class OneWorldObjectMaterialUpdater : MonoBehaviour
         {
             if (isActiveMap[timeStamp])
             {
-                SetObjectActive();
+                if (!isActive) SetObjectActive();
             }
             else
             {
-                SetObjectInactive();
+                if (isActive) SetObjectInactive();
             }
         }
         else
         {
-            SetObjectInactive();
+            if (isActive) SetObjectInactive();
         }
     }
 
     public void ResetMap()
     {
-        SetObjectInactive();
+        if (isActive) SetObjectInactive();
         isActiveMap.Clear();
     }
 
@@ -104,6 +108,8 @@ public class OneWorldObjectMaterialUpdater : MonoBehaviour
         {
             gameObject.layer = LayerMask.NameToLayer("FromOtherWorld");
         }
+
+        isActive = true;
     }
 
     private void SetObjectInactive()
@@ -119,5 +125,7 @@ public class OneWorldObjectMaterialUpdater : MonoBehaviour
         {
             gameObject.layer = LayerMask.NameToLayer("OtherWorld");
         }
+
+        isActive = false;
     }
 }

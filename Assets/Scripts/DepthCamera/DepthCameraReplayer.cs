@@ -8,16 +8,16 @@ public class DepthCameraReplayer : MonoBehaviour
     private struct CameraState
     {
         private Vector3 position;
-        private Quaternion rotation;
+        private Vector3 forward;
 
-        public CameraState(Vector3 position, Quaternion rotation)
+        public CameraState(Vector3 position, Vector3 forward)
         {
             this.position = position;
-            this.rotation = rotation;
+            this.forward = forward;
         }
 
         public Vector3 GetPosition() { return position; }
-        public Quaternion GetRotation() { return rotation; }
+        public Vector3 GetForward() { return forward; }
     }
 
     [SerializeField]
@@ -33,7 +33,7 @@ public class DepthCameraReplayer : MonoBehaviour
 
     public void RecordState(float timeStamp)
     {
-        CameraState state = new CameraState(depthCamera.position, depthCamera.rotation);
+        CameraState state = new CameraState(depthCamera.position, depthCamera.forward);
         cameraStatesMap[timeStamp] = state;
     }
 
@@ -42,7 +42,7 @@ public class DepthCameraReplayer : MonoBehaviour
         if (cameraStatesMap.ContainsKey(timeStamp))
         {
             depthCamera.position = cameraStatesMap[timeStamp].GetPosition();
-            depthCamera.rotation = cameraStatesMap[timeStamp].GetRotation();
+            depthCamera.forward = cameraStatesMap[timeStamp].GetForward();
         }
     }
 
