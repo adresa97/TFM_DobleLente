@@ -127,7 +127,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OtherWorldAlbedo: {r: 1, g: 0.9654912, b: 0, a: 1}
+    - _OtherWorldAlbedo: {r: 0.8207547, g: 0.6568899, b: 0.49942148, a: 1}
     - _OthrWorldAlbedo: {r: 1, g: 0, b: 0, a: 1}
     - _RealWorldAlbedo: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

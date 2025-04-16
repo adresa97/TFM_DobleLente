@@ -6,10 +6,10 @@ using UnityEngine.Animations;
 public class DepthCameraConstraintsManager : MonoBehaviour
 {
     [SerializeField]
-    PositionConstraint positionConstraint;
+    private PositionConstraint positionConstraint;
 
     [SerializeField]
-    RotationConstraint rotationConstraint;
+    private RotationConstraint rotationConstraint;
 
     public void ActivateConstraint()
     {

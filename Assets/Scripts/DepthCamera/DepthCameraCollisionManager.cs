@@ -9,13 +9,13 @@ public class DepthCameraCollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OneWorldObjectMaterialUpdater updater = other.gameObject.GetComponent<OneWorldObjectMaterialUpdater>();
+        CameraAwareObject updater = other.gameObject.GetComponent<CameraAwareObject>();
         if (updater != null) inVisionObjectsManager.ObjectEntered(updater);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        OneWorldObjectMaterialUpdater updater = other.gameObject.GetComponent<OneWorldObjectMaterialUpdater>();
+        CameraAwareObject updater = other.gameObject.GetComponent<CameraAwareObject>();
         if (updater != null) inVisionObjectsManager.ObjectExited(updater);
     }
 }

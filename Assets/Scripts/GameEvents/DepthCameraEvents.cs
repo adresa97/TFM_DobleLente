@@ -32,13 +32,3 @@ public class NotifyReplayHasStopEvent
 {
     public NotifyReplayHasStopEvent() { }
 }
-
-public class ActivatePreviewCameraUIEvent
-{
-    public ActivatePreviewCameraUIEvent() { }
-}
-
-public class DeactivatePreviewCameraUIEvent
-{
-    public DeactivatePreviewCameraUIEvent() { }
-}

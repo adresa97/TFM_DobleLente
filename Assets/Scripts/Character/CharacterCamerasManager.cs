@@ -22,10 +22,12 @@ public class CharacterCamerasManager : MonoBehaviour
     public void SetRealCamera()
     {
         realCamera.cullingMask = realCulling;
+        RenderSettings.fog = false;
     }
 
     public void SetPreviewCamera()
     {
         realCamera.cullingMask = previewCulling;
+        RenderSettings.fog = true;
     }
 }

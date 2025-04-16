@@ -17,7 +17,7 @@ public class DepthCameraDebugWindow : EditorWindow
 
     public void OnEnable()
     {
-        depthCameraEvents = (GameEvents)Resources.FindObjectsOfTypeAll(typeof(GameEvents)).Where((obj) => obj.name == "DepthCameraEvents").First();
+        depthCameraEvents = (GameEvents)Resources.FindObjectsOfTypeAll(typeof(GameEvents)).Where((obj) => obj.name == "ToDepthCameraEvents").First();
     }
 
     public void OnGUI()

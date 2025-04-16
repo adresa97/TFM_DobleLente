@@ -5,10 +5,10 @@ using UnityEngine;
 public class DepthCameraMasterManager : MonoBehaviour
 {
     [SerializeField]
-    private GameEvents eventListener;
+    private GameEvents playerToCameraEvents;
 
     [SerializeField]
-    private GameEvents characterPlayerInputEvents;
+    private GameEvents cameraToPlayerEvents;
 
     [SerializeField]
     private DepthCameraUpdater shaderUpdater;
@@ -43,15 +43,15 @@ public class DepthCameraMasterManager : MonoBehaviour
 
     private void OnEnable()
     {
-        eventListener.AddListener(DepthCameraEventsCallback);
+        playerToCameraEvents.AddListener(PlayerToCameraEventsCallback);
     }
 
     private void OnDisable()
     {
-        eventListener.RemoveListener(DepthCameraEventsCallback);
+        playerToCameraEvents.RemoveListener(PlayerToCameraEventsCallback);
     }
 
-    private void DepthCameraEventsCallback(object data)
+    private void PlayerToCameraEventsCallback(object data)
     {
         if (data is InitiatePreviewEvent) ActivatePreview();
         else if (data is CancelPreviewEvent) DeactivatePreview();
@@ -130,7 +130,7 @@ public class DepthCameraMasterManager : MonoBehaviour
 
         if (isCameraActive) DeactivateCamera();
 
-        characterPlayerInputEvents.Emit(new NotifyReplayHasStopEvent());
+        cameraToPlayerEvents.Emit(new NotifyReplayHasStopEvent());
     }
 
     private IEnumerator RecordingLoop()
@@ -144,7 +144,7 @@ public class DepthCameraMasterManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(recordInterval);
         }
 
-        characterPlayerInputEvents.Emit(new NotifyRecordHasStopEvent());
+        cameraToPlayerEvents.Emit(new NotifyRecordHasStopEvent());
 
         recordedTime = recordTime;
         recordTime = 0;

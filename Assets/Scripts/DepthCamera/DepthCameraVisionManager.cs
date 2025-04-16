@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DepthCameraVisionManager : MonoBehaviour
 {
-    private List<OneWorldObjectMaterialUpdater> objectsInVision;
-    private List<OneWorldObjectMaterialUpdater> objectsViewedInRecording;
+    private List<CameraAwareObject> objectsInVision;
+    private List<CameraAwareObject> objectsViewedInRecording;
 
     private bool isCameraRecording;
 
     private void Start()
     {
-        objectsInVision = new List<OneWorldObjectMaterialUpdater>();
-        objectsViewedInRecording = new List<OneWorldObjectMaterialUpdater>();
+        objectsInVision = new List<CameraAwareObject>();
+        objectsViewedInRecording = new List<CameraAwareObject>();
         isCameraRecording = false;
     }
 
@@ -46,7 +46,7 @@ public class DepthCameraVisionManager : MonoBehaviour
         objectsViewedInRecording.ForEach((obj) => obj.ReplayState(timeStamp));
     }
 
-    public void ObjectEntered(OneWorldObjectMaterialUpdater obj)
+    public void ObjectEntered(CameraAwareObject obj)
     {
         if (!objectsInVision.Contains(obj))
         {
@@ -55,7 +55,7 @@ public class DepthCameraVisionManager : MonoBehaviour
         }
     }
 
-    public void ObjectExited(OneWorldObjectMaterialUpdater obj)
+    public void ObjectExited(CameraAwareObject obj)
     {
         if (objectsInVision.Contains(obj))
         {
