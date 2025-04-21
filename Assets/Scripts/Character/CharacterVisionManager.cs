@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterVisionManager : MonoBehaviour
 {
     [SerializeField]
-    private GameEvents UIEvents;
+    private GameEvents playerToCameraEvents;
 
     [SerializeField]
     private Transform eye;
@@ -32,7 +32,7 @@ public class CharacterVisionManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isVisionActive)
+        if (isVisionActive && !isObjectGrabbed)
         {
             RaycastHit hit;
             if (Physics.Raycast(eye.position, eye.forward, out hit, viewRange, interactableObjects))
@@ -52,7 +52,15 @@ public class CharacterVisionManager : MonoBehaviour
         if (grabableObject != null)
         {
             onVisionObject = grabableObject.gameObject;
-            UIEvents.Emit(new UpdateUIInteractionModeEvent(UIInteractionModes.GRAB));
+            playerToCameraEvents.Emit(new GrabableObjectOnVisionEvent());
+            return;
+        }
+
+        ManualSwitchLogic interactableObject = obj.GetComponent<ManualSwitchLogic>();
+        if (interactableObject != null)
+        {
+            onVisionObject = interactableObject.gameObject;
+            playerToCameraEvents.Emit(new InteractableObjectOnVisionEvent());
             return;
         }
     }
@@ -60,7 +68,7 @@ public class CharacterVisionManager : MonoBehaviour
     private void WhenNoObjectIsInteractable()
     {
         onVisionObject = null;
-        UIEvents.Emit(new UpdateUIInteractionModeEvent(UIInteractionModes.EMPTY));
+        playerToCameraEvents.Emit(new NoObjectOnVisionEvent());
     }
 
     public bool InteractWithObject()
@@ -73,7 +81,7 @@ public class CharacterVisionManager : MonoBehaviour
             if (!isObjectGrabbed)
             {
                 DeactivateVision(false);
-                UIEvents.Emit(new UpdateUIInteractionModeEvent(UIInteractionModes.DROP));
+                playerToCameraEvents.Emit(new ObjectGrabbedEvent());
 
                 grabableObject.ActivateConstraint();
                 isObjectGrabbed = true;
@@ -91,18 +99,27 @@ public class CharacterVisionManager : MonoBehaviour
             }
         }
 
+        ManualSwitchLogic interactableObject = onVisionObject.GetComponent<ManualSwitchLogic>();
+        if (interactableObject != null)
+        {
+            if (!isObjectGrabbed)
+            {
+                interactableObject.Interact();
+            }
+        }
+
         return false;
     }
 
     public void ActivateVision(bool updateUI)
     {
         isVisionActive = true;
-        if (updateUI) UIEvents.Emit(new UpdateUIInteractionModeEvent(UIInteractionModes.EMPTY));
+        if (updateUI) playerToCameraEvents.Emit(new NoObjectOnVisionEvent());
     }
 
     public void DeactivateVision(bool updateUI)
     {
         isVisionActive = false;
-        if (updateUI) UIEvents.Emit(new UpdateUIInteractionModeEvent(UIInteractionModes.EMPTY));
+        if (updateUI) playerToCameraEvents.Emit(new NoObjectOnVisionEvent());
     }
 }

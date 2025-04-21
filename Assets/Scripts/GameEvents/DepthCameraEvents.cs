@@ -23,6 +23,11 @@ public class ForceStopReplayEvent
     public ForceStopReplayEvent() { }
 }
 
+public class NotifySecondHasBeenRecordedEvent
+{
+    public NotifySecondHasBeenRecordedEvent() { }
+}
+
 public class NotifyRecordHasStopEvent
 {
     public NotifyRecordHasStopEvent() { }

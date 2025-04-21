@@ -27,7 +27,8 @@ public class DepthCameraMasterManager : MonoBehaviour
     private float recordedTime;
     private float recordTime;
 
-    private float recordInterval = 1.0f/120.0f;
+    private int lastSecond;
+    private float recordInterval = 1.0f/60.0f;
 
     private bool isCameraActive, isCameraPreview, isCameraRecording;
 
@@ -39,6 +40,8 @@ public class DepthCameraMasterManager : MonoBehaviour
 
         recordedTime = 0;
         recordTime = 0;
+
+        lastSecond = 0;
     }
 
     private void OnEnable()
@@ -141,6 +144,13 @@ public class DepthCameraMasterManager : MonoBehaviour
             memoryUpdater.RecordState(recordTime);
 
             recordTime += recordInterval;
+
+            if (recordTime > lastSecond + 1)
+            {
+                cameraToPlayerEvents.Emit(new NotifySecondHasBeenRecordedEvent());
+                lastSecond++;
+            }
+
             yield return new WaitForSecondsRealtime(recordInterval);
         }
 
@@ -148,6 +158,7 @@ public class DepthCameraMasterManager : MonoBehaviour
 
         recordedTime = recordTime;
         recordTime = 0;
+        lastSecond = 0;
         ActivateCamera();
         StartCoroutine(ReplayLoop());
     }

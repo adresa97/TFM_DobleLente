@@ -12,9 +12,6 @@ public class CharacterActionsManager : MonoBehaviour
     private GameEvents playerToCameraEvents;
 
     [SerializeField]
-    private GameEvents UIEvents;
-
-    [SerializeField]
     private CharacterCamerasManager playerCamera;
 
     [SerializeField]
@@ -51,7 +48,7 @@ public class CharacterActionsManager : MonoBehaviour
 
     private void WhenStopRecordReceived()
     {
-        CloseCameraMode();
+        CloseCameraMode(true);
         isRecording = false;
         isReplaying = true;
     }
@@ -65,15 +62,13 @@ public class CharacterActionsManager : MonoBehaviour
     {
         playerCamera.SetPreviewCamera();
         playerVision.DeactivateVision(true);
-        UIEvents.Emit(new ActivatePreviewCameraUIEvent());
         isInCamera = true;
     }
 
-    private void CloseCameraMode()
+    private void CloseCameraMode(bool isToPlaying)
     {
         playerCamera.SetRealCamera();
         playerVision.ActivateVision(false);
-        UIEvents.Emit(new DeactivatePreviewCameraUIEvent());
         isInCamera = false;
     }
 
@@ -93,9 +88,9 @@ public class CharacterActionsManager : MonoBehaviour
                 playerToCameraEvents.Emit(new InitiatePreviewEvent());
             }
         }
-        else
+        else if (!isRecording)
         {
-            CloseCameraMode();
+            CloseCameraMode(false);
             playerToCameraEvents.Emit(new CancelPreviewEvent());
         }
     }

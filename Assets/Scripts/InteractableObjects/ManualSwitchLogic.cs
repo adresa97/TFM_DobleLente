@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ManualSwitchLogic : SwitchLogic
 {
+    public void Interact()
+    {
+        if (isPressed) ReleaseSwitch();
+        else PressSwitch();
+    }
+
     public void PressSwitch()
     {
         if (!isPressed)
