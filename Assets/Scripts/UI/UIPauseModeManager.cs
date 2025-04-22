@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class UIPauseModeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameEvents buttonEvents;
+
+    private void OnEnable()
     {
-        
+        buttonEvents.AddListener(ButtonEventsCallback);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        buttonEvents.RemoveListener(ButtonEventsCallback);
+    }
+
+    private void ButtonEventsCallback(object data)
+    {
+        if (data is ToMainMenuButtonEvent) Utils.ChangeScene(Utils.Scenes.MENU);
+        else if (data is ExitButtonEvent) Utils.ExitGame();
     }
 }

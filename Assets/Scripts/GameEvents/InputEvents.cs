@@ -70,6 +70,25 @@ public class InputPauseEvent
     public InputPauseEvent() { }
 }
 
+public class InputResumeEvent
+{
+    public InputResumeEvent() { }
+}
+
+public class InputSchemeChanged
+{
+    public ControlScheme scheme
+    {
+        get;
+        private set;
+    }
+
+    public InputSchemeChanged(ControlScheme scheme)
+    {
+        this.scheme = scheme;
+    }
+}
+
 public class InputStartRecordingEvent
 {
     public InputStartRecordingEvent() { }

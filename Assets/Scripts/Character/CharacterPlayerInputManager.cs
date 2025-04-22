@@ -18,7 +18,7 @@ public class CharacterPlayerInputManager : MonoBehaviour
     private bool isRunningButtonPressed;
     private bool isJumpingButtonPressed;
 
-    private void Awake()
+    private void Start()
     {
         moveAxis = Vector3.zero;
 
@@ -46,12 +46,12 @@ public class CharacterPlayerInputManager : MonoBehaviour
 
     private void OnPauseModeCallback(object data)
     {
-        if (data is InputPauseEvent) isInPauseMode = true;
+        if (data is InputResumeEvent) ExitPauseMode();
     }
 
     private void OnRegularModeCallback(object data)
     {
-        if (data is InputPauseEvent) isInPauseMode = false;
+        if (data is InputPauseEvent) EnterPauseMode();
         else if (data is InputMoveEvent) moveAxis = (data as InputMoveEvent).moveDirection;
         else if (data is InputRotationEvent) lookAtAxis = (data as InputRotationEvent).rotationDirection;
         else if (data is InputRunEvent) isRunningButtonPressed = (data as InputRunEvent).isRunning;
@@ -62,11 +62,23 @@ public class CharacterPlayerInputManager : MonoBehaviour
         else if (data is InputStopRecordingEvent) actionManager.StopRecording();
     }
 
+    private void EnterPauseMode()
+    {
+        moveAxis = Vector2.zero;
+        lookAtAxis = Vector2.zero;
+        isInPauseMode = true;
+    }
+
+    private void ExitPauseMode()
+    {
+        isInPauseMode = false;
+    }
+
     public Vector2 GetMovementAxis() { return moveAxis; }
     public Vector2 GetLookAtAxis() { return lookAtAxis; }
 
     public bool IsRunningButtonPressed() { return isRunningButtonPressed; }
     public bool IsJumpButtonPressed() { return isJumpingButtonPressed; }
 
-    public bool IsGamePaused() { return false; }
+    public bool IsGamePaused() { return isInPauseMode; }
 }

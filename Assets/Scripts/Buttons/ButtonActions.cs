@@ -17,6 +17,16 @@ public class ButtonActions : MonoBehaviour
         buttonEvents.Emit(new OptionsButtonEvent());
     }
 
+    public void OnResumeButton()
+    {
+        buttonEvents.Emit(new ResumeButtonEvent());
+    }
+
+    public void OnToMainMenuButton()
+    {
+        buttonEvents.Emit(new ToMainMenuButtonEvent());
+    }
+
     public void OnExitButton()
     {
         buttonEvents.Emit(new ExitButtonEvent());

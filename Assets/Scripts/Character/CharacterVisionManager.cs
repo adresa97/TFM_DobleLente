@@ -17,6 +17,9 @@ public class CharacterVisionManager : MonoBehaviour
     private GameObject onVisionObject;
     private LayerMask interactableObjects;
 
+    [SerializeField]
+    private Transform grabPoint;
+
     private bool isVisionActive;
     private bool isObjectGrabbed;
 
@@ -83,7 +86,7 @@ public class CharacterVisionManager : MonoBehaviour
                 DeactivateVision(false);
                 playerToCameraEvents.Emit(new ObjectGrabbedEvent());
 
-                grabableObject.ActivateConstraint();
+                grabableObject.ActivateConstraint(grabPoint);
                 isObjectGrabbed = true;
 
                 return true;

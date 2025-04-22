@@ -9,6 +9,24 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameEvents inputEvents;
 
+    [SerializeField]
+    private GameEvents buttonEvents;
+
+    [SerializeField]
+    private PlayerInput input;
+
+    [SerializeField]
+    private string menuMap;
+
+    [SerializeField]
+    private string gameMap;
+
+    [SerializeField]
+    private string keyboardScheme;
+
+    [SerializeField]
+    private string gamepadScheme;
+
     private Vector2 moveDirection;
     private Vector2 rotateDirection;
     private bool isRunning;
@@ -27,6 +45,16 @@ public class InputManager : MonoBehaviour
         isGrabbing = false;
         isPreviewing = false;
         isRecording = false;
+
+        Time.timeScale = 1;
+    }
+
+    private void ButtonEventsCallback(object data)
+    {
+        if (data is ResumeButtonEvent)
+        {
+            Resume();
+        }
     }
 
     // When moving action is executed
@@ -149,4 +177,41 @@ public class InputManager : MonoBehaviour
             inputEvents.Emit(new InputStopRecordingEvent());
         }
     }
+
+    // When pause action is executed
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started && input.currentActionMap.name != menuMap)
+        {
+            inputEvents.Emit(new InputPauseEvent());
+            input.SwitchCurrentActionMap(menuMap);
+            Time.timeScale = 0;
+
+            buttonEvents.AddListener(ButtonEventsCallback);
+        }
+    }
+
+    // Back to play
+    public void Resume()
+    {
+        inputEvents.Emit(new InputResumeEvent());
+        input.SwitchCurrentActionMap(gameMap);
+        Time.timeScale = 1;
+
+        buttonEvents.RemoveListener(ButtonEventsCallback);
+    }
+
+    public void ChangeControls(PlayerInput playerInput)
+    {
+        if (playerInput.currentControlScheme.Equals(keyboardScheme))
+        {
+            inputEvents.Emit(new InputSchemeChanged(ControlScheme.KEYBOARD));
+        }
+        else if (playerInput.currentControlScheme.Equals(gamepadScheme))
+        {
+            inputEvents.Emit(new InputSchemeChanged(ControlScheme.GAMEPAD));
+        }
+    }
 }
+
+public enum ControlScheme { KEYBOARD = 0, GAMEPAD = 1 };

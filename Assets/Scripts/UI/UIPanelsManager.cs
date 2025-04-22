@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class UIPanelsManager : MonoBehaviour
 {
     [SerializeField]
+    private GameEvents inputEvents;
+
+    [SerializeField]
     private GameEvents playerEvents;
 
     [SerializeField]
@@ -20,19 +23,30 @@ public class UIPanelsManager : MonoBehaviour
     private UIRegularPanelManager regularPanelManager;
 
     [SerializeField]
+    private GameObject pausePanel;
+
+    [SerializeField]
     private GameObject previewPanel;
 
 
     private void OnEnable()
     {
+        inputEvents.AddListener(InputEventsCallback);
         playerEvents.AddListener(PlayerEventsCallback);
         cameraEvents.AddListener(CameraEventsCallback);
     }
 
     private void OnDisable()
     {
+        inputEvents.RemoveListener(InputEventsCallback);
         playerEvents.RemoveListener(PlayerEventsCallback);
         cameraEvents.RemoveListener(CameraEventsCallback);
+    }
+
+    private void InputEventsCallback(object data)
+    {
+        if (data is InputPauseEvent) ActivatePausePanel();
+        else if (data is InputResumeEvent) DeactivatePausePanel();
     }
 
     private void PlayerEventsCallback(object data)
@@ -57,5 +71,15 @@ public class UIPanelsManager : MonoBehaviour
         regularPanel.SetActive(true);
         regularPanelManager.InitUI(isRecording);
         previewPanel.SetActive(false);
+    }
+
+    private void ActivatePausePanel()
+    {
+        pausePanel.SetActive(true);
+    }
+
+    private void DeactivatePausePanel()
+    {
+        pausePanel.SetActive(false);
     }
 }
