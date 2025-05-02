@@ -21,6 +21,7 @@ public class PressionSwitchLogic : SwitchLogic
             if (!isPressed)
             {
                 isPressed = true;
+                SetOnColor();
 
                 if (HasBrokenCables()) StartCoroutine(CheckWhilePressed());
                 else SendActivateSignal();
@@ -37,6 +38,7 @@ public class PressionSwitchLogic : SwitchLogic
             if (objectsPressing.Count == 0 && isPressed)
             {
                 isPressed = false;
+                SetOffColor();
 
                 if (!HasBrokenCables()) SendDeactivateSignal();
             }

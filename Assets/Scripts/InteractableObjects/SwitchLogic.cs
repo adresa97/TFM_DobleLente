@@ -14,6 +14,19 @@ public abstract class SwitchLogic : MonoBehaviour
     [SerializeField]
     private CableStatusChecker[] cableSegments;
 
+    [SerializeField]
+    private MeshRenderer colorRenderer;
+    private MaterialPropertyBlock colorProperty;
+
+    [SerializeField]
+    private Color offColor;
+
+    [SerializeField]
+    private Color onColor;
+
+    [SerializeField]
+    private bool isReal;
+
     protected bool isPressed;
     protected bool isActive;
 
@@ -21,6 +34,44 @@ public abstract class SwitchLogic : MonoBehaviour
     {
         isPressed = false;
         isActive = false;
+
+        colorProperty = new MaterialPropertyBlock();
+
+        SetOffColor();
+    }
+
+    protected void SetOnColor()
+    {
+        float realAlpha = colorRenderer.material.GetColor("_RealWorldAlbedo").a;
+
+        colorProperty.Clear();
+        if (realAlpha != 0f)
+        {
+            colorProperty.SetColor("_RealWorldAlbedo", onColor);
+        }
+        else
+        {
+            colorProperty.SetColor("_OtherWorldAlbedo", onColor);
+        }
+
+        colorRenderer.SetPropertyBlock(colorProperty);
+    }
+
+    protected void SetOffColor()
+    {
+        float realAlpha = colorRenderer.material.GetColor("_RealWorldAlbedo").a;
+
+        colorProperty.Clear();
+        if (realAlpha != 0f)
+        {
+            colorProperty.SetColor("_RealWorldAlbedo", offColor);
+        }
+        else
+        {
+            colorProperty.SetColor("_OtherWorldAlbedo", offColor);
+        }
+
+        colorRenderer.SetPropertyBlock(colorProperty);
     }
 
     private bool IsCablesWorking()

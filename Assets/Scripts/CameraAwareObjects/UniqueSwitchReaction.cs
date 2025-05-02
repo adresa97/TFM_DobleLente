@@ -3,18 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UniqueObjectReaction : CameraAwareObject
+public class UniqueSwitchReaction : CameraAwareObject
 {
-    [SerializeField]
-    private MeshRenderer objRenderer;
-
     [SerializeField]
     private bool isRealWorld;
 
     private Dictionary<float, bool> objStatusMap;
 
     private bool isActive;
-    private MaterialPropertyBlock uniqueMaterial;
 
     protected override void Start()
     {
@@ -24,9 +20,8 @@ public class UniqueObjectReaction : CameraAwareObject
         objStatusMap.Clear();
 
         isActive = false;
-        uniqueMaterial = new MaterialPropertyBlock();
 
-        SetObjectInactive();
+        SetSwitchIdlePreviewMode();
     }
 
     #region Record Phase
@@ -34,43 +29,19 @@ public class UniqueObjectReaction : CameraAwareObject
     protected override void RecordVisibleState(float timeStamp)
     {
         objStatusMap[timeStamp] = true;
+        SetSwitchRecordReplayMode();
     }
 
     protected override void RecordNonVisibleState(float timeStamp)
     {
         objStatusMap[timeStamp] = false;
+        SetSwitchIdlePreviewMode();
     }
 
-    #endregion
-
-    #region Replay Phase
-
-    protected override bool IsKeyInStateMap(float timeStamp)
-    {
-        return objStatusMap.ContainsKey(timeStamp);
-    }
-
-    protected override void WhenKeyExists(float timeStamp)
-    {
-        if (objStatusMap[timeStamp]) SetObjectActive();
-        else SetObjectInactive();
-    }
-
-    protected override void WhenKeyNotExists()
-    {
-        SetObjectInactive();
-    }
-
-    private void SetObjectActive()
+    private void SetSwitchRecordReplayMode()
     {
         if (!isActive)
         {
-            if (objRenderer != null)
-            {
-                uniqueMaterial.SetFloat("_IsObjectActive", 1);
-                objRenderer.SetPropertyBlock(uniqueMaterial);
-            }
-
             if (isRealWorld)
             {
                 gameObject.layer = LayerMask.NameToLayer("FromRealWorld");
@@ -84,16 +55,10 @@ public class UniqueObjectReaction : CameraAwareObject
         }
     }
 
-    private void SetObjectInactive()
+    private void SetSwitchIdlePreviewMode()
     {
         if (isActive)
         {
-            if (objRenderer != null)
-            {
-                uniqueMaterial.SetFloat("_IsObjectActive", 0);
-                objRenderer.SetPropertyBlock(uniqueMaterial);
-            }
-
             if (isRealWorld)
             {
                 gameObject.layer = LayerMask.NameToLayer("RealWorld");
@@ -109,11 +74,31 @@ public class UniqueObjectReaction : CameraAwareObject
 
     #endregion
 
+    #region Replay Phase
+
+    protected override bool IsKeyInStateMap(float timeStamp)
+    {
+        return objStatusMap.ContainsKey(timeStamp);
+    }
+
+    protected override void WhenKeyExists(float timeStamp)
+    {
+        if (objStatusMap[timeStamp]) SetSwitchRecordReplayMode();
+        else SetSwitchIdlePreviewMode();
+    }
+
+    protected override void WhenKeyNotExists()
+    {
+        SetSwitchIdlePreviewMode();
+    }
+
+    #endregion
+
     #region Reset Data
 
     protected override void OnResetMap()
     {
-        SetObjectInactive();
+        SetSwitchIdlePreviewMode();
         objStatusMap.Clear();
     }
 

@@ -6,8 +6,14 @@ public class ManualSwitchLogic : SwitchLogic
 {
     public void Interact()
     {
-        if (isPressed) ReleaseSwitch();
-        else PressSwitch();
+        if (isPressed)
+        {
+            ReleaseSwitch();
+        }
+        else
+        {
+            PressSwitch();
+        }
     }
 
     public void PressSwitch()
@@ -15,6 +21,7 @@ public class ManualSwitchLogic : SwitchLogic
         if (!isPressed)
         {
             isPressed = true;
+            SetOnColor();
 
             if (HasBrokenCables()) StartCoroutine(CheckWhilePressed());
             else SendActivateSignal();
@@ -26,6 +33,7 @@ public class ManualSwitchLogic : SwitchLogic
         if (isPressed)
         {
             isPressed = false;
+            SetOffColor();
 
             if (!HasBrokenCables()) SendDeactivateSignal();
         }

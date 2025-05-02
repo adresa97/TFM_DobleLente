@@ -10,7 +10,8 @@ public class OneWayMovingInteractee : MonoBehaviour
     private GameEvents interactionEvents;
 
     [SerializeField]
-    private int signal;
+    private int[] signals;
+    private bool[] activedSignals;
 
     [SerializeField]
     private Transform initialPoint;
@@ -37,6 +38,12 @@ public class OneWayMovingInteractee : MonoBehaviour
 
         isOnInitial = directionWay == DIRECTION_WAY.STOP ? true : false;
         isOnTarget = false;
+
+        activedSignals = new bool[signals.Length];
+        for (int i = 0; i < signals.Length; i++)
+        {
+            activedSignals[i] = false;
+        }
     }
 
     private void OnEnable()
@@ -77,7 +84,18 @@ public class OneWayMovingInteractee : MonoBehaviour
 
     private void TryToActivate(int inSignal)
     {
-        if (inSignal == signal)
+        bool isAllActive = true;
+        for (int i = 0; i < signals.Length; i++)
+        {
+            if (inSignal == signals[i])
+            {
+                activedSignals[i] = true;
+            }
+
+            if (!activedSignals[i]) isAllActive = false;
+        }
+
+        if (isAllActive)
         {
             directionWay = DIRECTION_WAY.FORWARD;
             isOnInitial = false;
@@ -86,7 +104,18 @@ public class OneWayMovingInteractee : MonoBehaviour
 
     private void TryToDeactivate(int inSignal)
     {
-        if (inSignal == signal)
+        bool isAllActive = true;
+        for (int i = 0; i < signals.Length; i++)
+        {
+            if (inSignal == signals[i])
+            {
+                activedSignals[i] = true;
+            }
+
+            if (!activedSignals[i]) isAllActive = false;
+        }
+
+        if (isAllActive)
         {
             directionWay = DIRECTION_WAY.BACKWARD;
             isOnTarget = false;
