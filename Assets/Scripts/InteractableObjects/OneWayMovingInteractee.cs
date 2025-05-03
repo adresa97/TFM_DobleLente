@@ -23,7 +23,8 @@ public class OneWayMovingInteractee : MonoBehaviour
 
     [SerializeField]
     private DIRECTION_WAY directionWay;
-    private Vector3 moveDirection;
+
+    private float movingProgress;
 
     [SerializeField]
     private int moveTime;
@@ -33,8 +34,8 @@ public class OneWayMovingInteractee : MonoBehaviour
     {
         transform.position = initialPoint.position;
 
-        moveDirection = (targetPoint.position - initialPoint.position).normalized;
-        speed = (targetPoint.position - initialPoint.position).magnitude / moveTime;
+        movingProgress = 0;
+        speed = 1.0f / moveTime;
 
         isOnInitial = directionWay == DIRECTION_WAY.STOP ? true : false;
         isOnTarget = false;
@@ -72,13 +73,25 @@ public class OneWayMovingInteractee : MonoBehaviour
     {
         if (directionWay == DIRECTION_WAY.FORWARD && !isOnTarget)
         {
-            transform.position = transform.position + (moveDirection * speed * (int)directionWay);
-            if (transform.position == targetPoint.position) isOnTarget = true;
+            movingProgress += speed;
+            if (movingProgress >= 1)
+            {
+                movingProgress = 1;
+                isOnTarget = true;
+            }
+
+            transform.position = initialPoint.position + (targetPoint.position - initialPoint.position) * movingProgress;
         }
         else if (directionWay == DIRECTION_WAY.BACKWARD && !isOnInitial)
         {
-            transform.position = transform.position + (moveDirection * speed * (int)directionWay);
-            if (transform.position == initialPoint.position) isOnInitial = true;
+            movingProgress -= speed;
+            if (movingProgress <= 0)
+            {
+                movingProgress = 0;
+                isOnInitial = true;
+            }
+
+            transform.position = Vector3.Lerp(initialPoint.position, targetPoint.position, movingProgress);
         }
     }
 

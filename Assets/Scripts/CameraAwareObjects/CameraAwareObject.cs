@@ -34,7 +34,7 @@ public abstract class CameraAwareObject : MonoBehaviour
             Vector3 distance = camPosition - visionPoints[i].position;
 
             RaycastHit hit;
-            if (Physics.Raycast(visionPoints[i].position, distance.normalized, out hit, distance.magnitude, allMinusPlayerMask))
+            if (Physics.Raycast(visionPoints[i].position, distance.normalized, out hit, distance.magnitude + 1.0f, allMinusPlayerMask))
             {
                 if (hit.collider.tag == "DepthCameraRaycast") return true;
             }

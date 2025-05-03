@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VariableDoor
-  m_Shader: {fileID: -6465566751694194690, guid: 146fc6f0bb235674cb6bb1b064361d56, type: 3}
+  m_Name: CableVariableMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 4ff550ac28ed7544eb2ceb44992f9627, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -124,11 +124,11 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OtherWorldAlbedo: {r: 0.34509805, g: 0.58431375, b: 0.34901962, a: 1}
-    - _RealWorldAlbedo: {r: 0.5030705, g: 0.6098519, b: 0.8962264, a: 1}
+    - _OtherWorldAlbedo: {r: 0.39215687, g: 0.50980395, b: 0.31764707, a: 1}
+    - _RealWorldAlbedo: {r: 0.42212528, g: 0.43781537, b: 0.5849056, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2100784091714806399
+--- !u!114 &5139737855665660825
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

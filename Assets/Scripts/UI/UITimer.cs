@@ -49,6 +49,6 @@ public class UITimer : MonoBehaviour
 
     private void EraseTimer()
     {
-        container.text = "";
+        container.text = "00:00";
     }
 }

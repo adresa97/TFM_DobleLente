@@ -27,11 +27,13 @@ public class CablePointReaction : CameraAwareObject
     protected override void RecordVisibleState(float timeStamp)
     {
         objStatusMap[timeStamp] = true;
+        isActive = true;
     }
 
     protected override void RecordNonVisibleState(float timeStamp)
     {
         objStatusMap[timeStamp] = false;
+        isActive = false;
     }
 
     #endregion
