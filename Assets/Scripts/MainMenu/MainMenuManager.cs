@@ -7,6 +7,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameEvents buttonEvents;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void OnEnable()
     {
         buttonEvents.AddListener(ButtonEventsCallback);

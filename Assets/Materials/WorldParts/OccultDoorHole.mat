@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VariableDoor
-  m_Shader: {fileID: -6465566751694194690, guid: 146fc6f0bb235674cb6bb1b064361d56, type: 3}
+  m_Name: OccultDoorHole
+  m_Shader: {fileID: -6465566751694194690, guid: 4222e094d212a9544b706340801d0128, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OtherWorldTexture:
-        m_Texture: {fileID: 2800000, guid: 13cd2b68a93eb7f4bb96fbc4ffcb0188, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8198c950d0ca7c243a860119cd38e059, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RealWorldTexture:
-        m_Texture: {fileID: 2800000, guid: dbdc97525330ff04d8d6b98f94efd4e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1e152bd58bc48c048916cb7f2cca4491, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -125,10 +125,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OtherWorldAlbedo: {r: 1, g: 1, b: 1, a: 1}
-    - _RealWorldAlbedo: {r: 1, g: 1, b: 1, a: 1}
+    - _RealWorldAlbedo: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2100784091714806399
+--- !u!114 &3999806226834275755
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
