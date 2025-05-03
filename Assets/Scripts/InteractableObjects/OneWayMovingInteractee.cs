@@ -35,7 +35,7 @@ public class OneWayMovingInteractee : MonoBehaviour
         transform.position = initialPoint.position;
 
         movingProgress = 0;
-        speed = 1.0f / moveTime;
+        speed = (1.0f / moveTime) * Time.fixedDeltaTime;
 
         isOnInitial = directionWay == DIRECTION_WAY.STOP ? true : false;
         isOnTarget = false;
@@ -78,6 +78,7 @@ public class OneWayMovingInteractee : MonoBehaviour
             {
                 movingProgress = 1;
                 isOnTarget = true;
+                directionWay = DIRECTION_WAY.STOP;
             }
 
             transform.position = initialPoint.position + (targetPoint.position - initialPoint.position) * movingProgress;
@@ -89,6 +90,7 @@ public class OneWayMovingInteractee : MonoBehaviour
             {
                 movingProgress = 0;
                 isOnInitial = true;
+                directionWay = DIRECTION_WAY.STOP;
             }
 
             transform.position = Vector3.Lerp(initialPoint.position, targetPoint.position, movingProgress);
@@ -103,6 +105,7 @@ public class OneWayMovingInteractee : MonoBehaviour
             if (inSignal == signals[i])
             {
                 activedSignals[i] = true;
+                Debug.Log("Soy " + gameObject.name + " y he recibido la señal positiva de " + inSignal + " siendo mi señal " + signals[i]);
             }
 
             if (!activedSignals[i]) isAllActive = false;
@@ -117,21 +120,31 @@ public class OneWayMovingInteractee : MonoBehaviour
 
     private void TryToDeactivate(int inSignal)
     {
-        bool isAllActive = true;
+        bool isAllActive = false;
         for (int i = 0; i < signals.Length; i++)
         {
             if (inSignal == signals[i])
             {
-                activedSignals[i] = true;
+                activedSignals[i] = false;
+                Debug.Log("Soy " + gameObject.name + " y he recibido la señal negativa de " + inSignal + " siendo mi señal " + signals[i]);
             }
 
-            if (!activedSignals[i]) isAllActive = false;
+            if (activedSignals[i]) isAllActive = true;
         }
 
-        if (isAllActive)
+        if (!isAllActive)
         {
             directionWay = DIRECTION_WAY.BACKWARD;
             isOnTarget = false;
+        }
+    }
+
+    public void OccultMovingStopBeingReplayed()
+    {
+        Debug.Log("Alguien me obliga a cerrarme");
+        for (int i = 0; i < signals.Length; i++)
+        {
+            TryToDeactivate(signals[i]);
         }
     }
 }

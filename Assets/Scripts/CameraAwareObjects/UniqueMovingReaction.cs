@@ -6,7 +6,7 @@ using UnityEngine;
 public class UniqueMovingReaction : CameraAwareObject
 {
     [SerializeField]
-    private MeshRenderer objRenderer;
+    private MeshRenderer[] objRenderers;
 
     [SerializeField]
     private OneWayMovingInteractee movement;
@@ -70,6 +70,7 @@ public class UniqueMovingReaction : CameraAwareObject
         {
             SetObjectInactive();
             movement.enabled = true;
+            movement.OccultMovingStopBeingReplayed();
         }
     }
 
@@ -77,25 +78,37 @@ public class UniqueMovingReaction : CameraAwareObject
     {
         SetObjectInactive();
         movement.enabled = true;
+        movement.OccultMovingStopBeingReplayed();
     }
 
     private void SetObjectActive()
     {
         if (!isActive)
         {
-            if (objRenderer != null)
+            if (objRenderers.Length > 0)
             {
                 uniqueMaterial.SetFloat("_IsObjectActive", 1);
-                objRenderer.SetPropertyBlock(uniqueMaterial);
+                for(int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].SetPropertyBlock(uniqueMaterial);
+                }
             }
 
             if (isRealWorld)
             {
                 gameObject.layer = LayerMask.NameToLayer("FromRealWorld");
+                for (int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].gameObject.layer = LayerMask.NameToLayer("FromRealWorld");
+                }
             }
             else
             {
                 gameObject.layer = LayerMask.NameToLayer("FromOtherWorld");
+                for (int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].gameObject.layer = LayerMask.NameToLayer("FromOtherWorld");
+                }
             }
 
             isActive = true;
@@ -106,19 +119,30 @@ public class UniqueMovingReaction : CameraAwareObject
     {
         if (isActive)
         {
-            if (objRenderer != null)
+            if (objRenderers.Length > 0)
             {
                 uniqueMaterial.SetFloat("_IsObjectActive", 0);
-                objRenderer.SetPropertyBlock(uniqueMaterial);
+                for (int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].SetPropertyBlock(uniqueMaterial);
+                }
             }
 
             if (isRealWorld)
             {
                 gameObject.layer = LayerMask.NameToLayer("RealWorld");
+                for (int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].gameObject.layer = LayerMask.NameToLayer("RealWorld");
+                }
             }
             else
             {
                 gameObject.layer = LayerMask.NameToLayer("OtherWorld");
+                for (int i = 0; i < objRenderers.Length; i++)
+                {
+                    objRenderers[i].gameObject.layer = LayerMask.NameToLayer("OtherWorld");
+                }
             }
 
             isActive = false;
@@ -132,6 +156,8 @@ public class UniqueMovingReaction : CameraAwareObject
     protected override void OnResetMap()
     {
         SetObjectInactive();
+        movement.enabled = true;
+        movement.OccultMovingStopBeingReplayed();
         objStatusMap.Clear();
     }
 
