@@ -105,7 +105,6 @@ public class OneWayMovingInteractee : MonoBehaviour
             if (inSignal == signals[i])
             {
                 activedSignals[i] = true;
-                Debug.Log("Soy " + gameObject.name + " y he recibido la señal positiva de " + inSignal + " siendo mi señal " + signals[i]);
             }
 
             if (!activedSignals[i]) isAllActive = false;
@@ -126,7 +125,6 @@ public class OneWayMovingInteractee : MonoBehaviour
             if (inSignal == signals[i])
             {
                 activedSignals[i] = false;
-                Debug.Log("Soy " + gameObject.name + " y he recibido la señal negativa de " + inSignal + " siendo mi señal " + signals[i]);
             }
 
             if (activedSignals[i]) isAllActive = true;
@@ -141,7 +139,6 @@ public class OneWayMovingInteractee : MonoBehaviour
 
     public void OccultMovingStopBeingReplayed()
     {
-        Debug.Log("Alguien me obliga a cerrarme");
         for (int i = 0; i < signals.Length; i++)
         {
             TryToDeactivate(signals[i]);

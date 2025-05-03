@@ -25,7 +25,7 @@ public class CharacterVisionManager : MonoBehaviour
 
     private void Start()
     {
-        interactableObjects = LayerMask.GetMask("BothWorlds", "RealWorld", "FromOtherWorld");
+        interactableObjects = LayerMask.GetMask("BothWorlds", "RealWorld", "FromOtherWorld", "UniqueItems");
 
         onVisionObject = null;
 
