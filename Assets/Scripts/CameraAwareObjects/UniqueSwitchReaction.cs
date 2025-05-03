@@ -1,5 +1,3 @@
-using log4net.ObjectRenderer;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
