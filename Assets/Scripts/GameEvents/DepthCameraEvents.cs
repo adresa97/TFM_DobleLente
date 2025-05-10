@@ -37,3 +37,8 @@ public class NotifyReplayHasStopEvent
 {
     public NotifyReplayHasStopEvent() { }
 }
+
+public class NotifyRemoteReplayHasStopEvent
+{
+    public NotifyRemoteReplayHasStopEvent() { }
+}

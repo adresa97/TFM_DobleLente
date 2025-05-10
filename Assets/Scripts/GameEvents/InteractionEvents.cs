@@ -45,3 +45,8 @@ public class DeactivateSignalEvent
         this.signal = signal;
     }
 }
+
+public class TakeCameraEvent
+{
+    public TakeCameraEvent() { }
+}

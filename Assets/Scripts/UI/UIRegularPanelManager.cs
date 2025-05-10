@@ -4,7 +4,10 @@ using UnityEngine.UI;
 public class UIRegularPanelManager : MonoBehaviour
 {
     private enum UIInteractionIcon { NONE = 0, INTERACT = 1, GRAB = 2, DROP = 3 };
-    private enum UICameraIcon { STOP = 0, CAMERA = 1 };
+    private enum UICameraIcon { NONE = 0, STOP = 1, CAMERA = 2 };
+
+    [SerializeField]
+    private GameEvents gameplayEvents;
 
     [SerializeField]
     private GameEvents playerEvents;
@@ -24,16 +27,31 @@ public class UIRegularPanelManager : MonoBehaviour
     [SerializeField]
     private Sprite[] cameraModesActions;
 
+    private void Start()
+    {
+        cameraModeIcon.enabled = false;
+    }
+
     private void OnEnable()
     {
+        gameplayEvents.AddListener(GameplayEventsCallback);
         playerEvents.AddListener(PlayerEventsCallback);
         cameraEvents.AddListener(CameraEventsCallback);
     }
 
     private void OnDisable()
     {
+        gameplayEvents.RemoveListener(GameplayEventsCallback);
         playerEvents.RemoveListener(PlayerEventsCallback);
         cameraEvents.RemoveListener(CameraEventsCallback);
+    }
+
+    private void GameplayEventsCallback(object data)
+    {
+        if (data is TakeCameraEvent)
+        {
+            SetCameraIcon(UICameraIcon.CAMERA);
+        }
     }
 
     private void PlayerEventsCallback(object data)
@@ -54,8 +72,8 @@ public class UIRegularPanelManager : MonoBehaviour
     {
         interactionIcon.enabled = false;
 
-        if (isRecording) cameraModeIcon.sprite = cameraModesActions[1];
-        else cameraModeIcon.sprite = cameraModesActions[0];
+        if (isRecording) SetCameraIcon(UICameraIcon.STOP);
+        else SetCameraIcon(UICameraIcon.CAMERA);
     }
 
     private void SetInteractIcon(UIInteractionIcon icon)
@@ -90,12 +108,18 @@ public class UIRegularPanelManager : MonoBehaviour
     {
         switch(icon)
         {
+            case UICameraIcon.NONE:
+                cameraModeIcon.enabled = false;
+                break;
+
             case UICameraIcon.STOP:
-                cameraModeIcon.sprite = cameraModesActions[1];
+                cameraModeIcon.sprite = cameraModesActions[2];
+                cameraModeIcon.enabled = true;
                 break;
 
             case UICameraIcon.CAMERA:
-                cameraModeIcon.sprite = cameraModesActions[0];
+                cameraModeIcon.sprite = cameraModesActions[1];
+                cameraModeIcon.enabled = true;
                 break;
 
             default:

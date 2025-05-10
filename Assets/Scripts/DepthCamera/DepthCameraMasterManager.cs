@@ -1,9 +1,13 @@
+using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DepthCameraMasterManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameEvents gameplayEvents;
+
     [SerializeField]
     private GameEvents playerToCameraEvents;
 
@@ -46,12 +50,27 @@ public class DepthCameraMasterManager : MonoBehaviour
 
     private void OnEnable()
     {
+        gameplayEvents.AddListener(GameplayEventsCallback);
         playerToCameraEvents.AddListener(PlayerToCameraEventsCallback);
     }
 
     private void OnDisable()
     {
+        gameplayEvents.RemoveListener(GameplayEventsCallback);
         playerToCameraEvents.RemoveListener(PlayerToCameraEventsCallback);
+    }
+
+    private void GameplayEventsCallback(object data)
+    {
+        if (data is TakeCameraEvent)
+        {
+            constraints.SetPlayerConstraint();
+            StartCoroutine(WaitToStop());
+        }
+        else if (data is InitiateRecordingEvent)
+        {
+            RemoteRecording(2);
+        }
     }
 
     private void PlayerToCameraEventsCallback(object data)
@@ -98,6 +117,36 @@ public class DepthCameraMasterManager : MonoBehaviour
         recordTime = 0;
         recordedTime = 0;
         StartCoroutine(RecordingLoop());
+    }
+
+    private void RemoteRecording(int seconds)
+    {
+        inVisionObjectsManager.NotifyCameraIsRecording();
+        isCameraRecording = true;
+        recordTime = 0;
+        recordedTime = 0;
+        StartCoroutine(RemoteRecordingLoop(seconds));
+    }
+
+    private IEnumerator WaitToStop()
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+
+        StopAllActions();
+    }
+
+    private void StopAllActions()
+    {
+        StopAllCoroutines();
+        recordedTime = 0;
+        recordTime = 0;
+        lastSecond = 0;
+
+        isCameraActive = false;
+        isCameraPreview = false;
+        isCameraRecording = false;
+
+        StopReplaying();
     }
 
     private void StopRecording()
@@ -163,6 +212,33 @@ public class DepthCameraMasterManager : MonoBehaviour
         StartCoroutine(ReplayLoop());
     }
 
+    private IEnumerator RemoteRecordingLoop(int seconds)
+    {
+        while (isCameraRecording && recordTime < seconds)
+        {
+            inVisionObjectsManager.NotifyObjectsRecord(recordTime, transform.position);
+
+            recordTime += recordInterval;
+
+            if (recordTime > lastSecond + 1)
+            {
+                lastSecond++;
+            }
+
+            yield return new WaitForSecondsRealtime(recordInterval);
+        }
+
+        recordedTime = recordTime;
+        recordTime = 0;
+        lastSecond = 0;
+
+        shaderUpdater.ActivateCamera();
+        inVisionObjectsManager.NotifyCameraIsReplaying();
+        isCameraActive = true;
+
+        StartCoroutine(RemoteReplayLoop());
+    }
+
     private IEnumerator ReplayLoop()
     {
         while (isCameraActive && recordTime < recordedTime)
@@ -177,6 +253,27 @@ public class DepthCameraMasterManager : MonoBehaviour
         recordedTime = 0;
         recordTime = 0;
         StopReplaying();
+    }
+
+    private IEnumerator RemoteReplayLoop()
+    {
+        while (isCameraActive && recordTime < recordedTime)
+        {
+            inVisionObjectsManager.NotifyObjectsReplay(recordTime);
+
+            recordTime += recordInterval;
+            yield return new WaitForSecondsRealtime(recordInterval);
+        }
+
+        recordedTime = 0;
+        recordTime = 0;
+
+        shaderUpdater.DeactivateCamera();
+        inVisionObjectsManager.NotifyCameraIsDeactivated();
+        isCameraActive = false;
+
+        cameraToPlayerEvents.Emit(new NotifyRemoteReplayHasStopEvent());
+
     }
 
     public bool IsCameraActive()

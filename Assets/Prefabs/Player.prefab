@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 259f376cedebaad4c80aeb09939e7fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayEvents: {fileID: 11400000, guid: aa7767ddddc09ed46aeb6a7bd06ba356, type: 2}
   cameraToPlayerEvents: {fileID: 11400000, guid: cdb49fb8064fc7d4284ecaeaa9e954e8, type: 2}
   playerToCameraEvents: {fileID: 11400000, guid: 0d8792cedb6ac7641b8f28b7538198a7, type: 2}
   playerCamera: {fileID: 4283963689800477246}
@@ -512,3 +513,5 @@ MonoBehaviour:
   commonCulling:
     serializedVersion: 2
     m_Bits: 383
+  previewBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  previewFarPlane: 0

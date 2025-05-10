@@ -54,9 +54,12 @@ public class CharacterPlayerInputManager : MonoBehaviour
         else if (data is InputRunEvent) isRunningButtonPressed = (data as InputRunEvent).isRunning;
         else if (data is InputJumpEvent) isJumpingButtonPressed = (data as InputJumpEvent).isJumping;
         else if (data is InputGrabEvent) actionManager.InteractObject();
-        else if (data is InputPreviewEvent) actionManager.ToggleCameraMode();
-        else if (data is InputStartRecordingEvent) actionManager.StartRecording();
-        else if (data is InputStopRecordingEvent) actionManager.StopRecording();
+        else if (actionManager.HasCamera())
+        {
+            if (data is InputPreviewEvent) actionManager.ToggleCameraMode();
+            else if (data is InputStartRecordingEvent) actionManager.StartRecording();
+            else if (data is InputStopRecordingEvent) actionManager.StopRecording();
+        }
     }
 
     private void EnterPauseMode()

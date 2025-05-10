@@ -3,6 +3,9 @@ using UnityEngine;
 public class CharacterActionsManager : MonoBehaviour
 {
     [SerializeField]
+    private GameEvents gameplayEvents;
+
+    [SerializeField]
     private GameEvents cameraToPlayerEvents;
 
     [SerializeField]
@@ -14,6 +17,8 @@ public class CharacterActionsManager : MonoBehaviour
     [SerializeField]
     private CharacterVisionManager playerVision;
 
+    private bool hasCamera;
+
     private bool isGrabbing;
     private bool isInCamera;
     private bool isRecording;
@@ -21,6 +26,8 @@ public class CharacterActionsManager : MonoBehaviour
 
     private void Awake()
     {
+        hasCamera = false;
+
         isGrabbing = false;
         isInCamera = false;
         isRecording = false;
@@ -30,17 +37,36 @@ public class CharacterActionsManager : MonoBehaviour
     private void OnEnable()
     {
         cameraToPlayerEvents.AddListener(CameraToPlayerEventsCallback);
+        gameplayEvents.AddListener(GameplayEventsCallback);
     }
 
     private void OnDisable()
     {
         cameraToPlayerEvents.RemoveListener(CameraToPlayerEventsCallback);
+        if (!hasCamera) gameplayEvents.RemoveListener(GameplayEventsCallback);
     }
 
     private void CameraToPlayerEventsCallback(object data)
     {
-        if (data is NotifyRecordHasStopEvent) WhenStopRecordReceived();
-        else if (data is NotifyReplayHasStopEvent) WhenStopReplayReceived();
+        if (hasCamera)
+        {
+            if (data is NotifyRecordHasStopEvent) WhenStopRecordReceived();
+            else if (data is NotifyReplayHasStopEvent) WhenStopReplayReceived();
+        }
+    }
+
+    private void GameplayEventsCallback(object data)
+    {
+        if (data is TakeCameraEvent)
+        {
+            hasCamera = true;
+            gameplayEvents.RemoveListener(GameplayEventsCallback);
+        }
+    }
+
+    public bool HasCamera()
+    {
+        return hasCamera;
     }
 
     private void WhenStopRecordReceived()

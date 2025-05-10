@@ -63,6 +63,17 @@ public class CharacterVisionManager : MonoBehaviour
             playerToCameraEvents.Emit(new InteractableObjectOnVisionEvent());
             return;
         }
+
+        GrabableCamera cameraObject = obj.GetComponent<GrabableCamera>();
+        if (cameraObject != null)
+        {
+            if (cameraObject.IsCameraActive())
+            {
+                onVisionObject = cameraObject.gameObject;
+                playerToCameraEvents.Emit(new InteractableObjectOnVisionEvent());
+                return;
+            }
+        }
     }
 
     private void WhenNoObjectIsInteractable()
@@ -105,6 +116,15 @@ public class CharacterVisionManager : MonoBehaviour
             if (!isObjectGrabbed)
             {
                 interactableObject.Interact();
+            }
+        }
+
+        GrabableCamera cameraObject = onVisionObject.GetComponent<GrabableCamera>();
+        if (cameraObject != null && cameraObject.IsCameraActive())
+        {
+            if (!isObjectGrabbed)
+            {
+                cameraObject.Interact();
             }
         }
 
