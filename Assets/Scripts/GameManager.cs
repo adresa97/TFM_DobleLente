@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         {
             if ((data as ActivateSignalEvent).signal == endingFrequency)
             {
-                Utils.ChangeScene(Utils.Scenes.MENU);
+                Utils.ChangeScene(Utils.Scenes.CREDITS);
             }
         }
     }

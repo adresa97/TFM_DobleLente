@@ -124,8 +124,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OtherWorldAlbedo: {r: 0.39215687, g: 0.50980395, b: 0.31764707, a: 1}
-    - _RealWorldAlbedo: {r: 0.42212528, g: 0.43781537, b: 0.5849056, a: 1}
+    - _OtherWorldAlbedo: {r: 0.12616517, g: 0.16981131, b: 0.0985226, a: 1}
+    - _RealWorldAlbedo: {r: 0.38033998, g: 0.40917954, b: 0.7264151, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5139737855665660825

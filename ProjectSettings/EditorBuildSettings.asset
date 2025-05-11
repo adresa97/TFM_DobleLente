@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 4bd23819cf454434089bac6e38759dbb
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 8b140abfda2763949887d0b1f2e1dde2
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: af35ad16aba3a6d46bb8d8a31804c866
   - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: ea1c0efc75ff8bd4f80edda810ba5211

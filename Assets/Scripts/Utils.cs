@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Utils
 {
-    public enum Scenes { MENU = 0, GAME = 1, TEST = 2 };
+    public enum Scenes { MENU = 0, GAME = 1, INTRO = 2, CREDITS = 3, TEST = 4 };
 
     static public void ChangeScene(Scenes nextScene)
     {
