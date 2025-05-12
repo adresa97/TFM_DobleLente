@@ -77,13 +77,13 @@ public class InputResumeEvent
 
 public class InputSchemeChanged
 {
-    public ControlScheme scheme
+    public Utils.ControlScheme scheme
     {
         get;
         private set;
     }
 
-    public InputSchemeChanged(ControlScheme scheme)
+    public InputSchemeChanged(Utils.ControlScheme scheme)
     {
         this.scheme = scheme;
     }

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 7920354530538104998}
   - component: {fileID: 8025311967375745255}
   - component: {fileID: 6398926671494195776}
+  - component: {fileID: 3629816781800432066}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -190,6 +191,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3629816781800432066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627431300891269929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cde67f95b7bae40b692b0019fb64a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5809ef1e08b88b3449ddc88260600343, type: 2}
+  inputEvents: {fileID: 11400000, guid: cfdc1b0f87089e4479e5772f9423e929, type: 2}
+  imageUI: {fileID: 6398926671494195776}
+  controllerIcon: {fileID: 21300000, guid: b988e45b20744634e8f05906f78dfdb1, type: 3}
+  keyboardMouseIcon: {fileID: 21300000, guid: 15ea4b94e880edf4e90fbfa8f9ddf351, type: 3}
 --- !u!1 &689933602157573696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1252,7 @@ GameObject:
   - component: {fileID: 6662435154309218262}
   - component: {fileID: 6626824407134347260}
   - component: {fileID: 7597101915051938628}
+  - component: {fileID: 2759103962340489146}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -1298,6 +1317,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2759103962340489146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714061092092974230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cde67f95b7bae40b692b0019fb64a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5809ef1e08b88b3449ddc88260600343, type: 2}
+  inputEvents: {fileID: 11400000, guid: cfdc1b0f87089e4479e5772f9423e929, type: 2}
+  imageUI: {fileID: 7597101915051938628}
+  controllerIcon: {fileID: 21300000, guid: 734d62e201e3dda4ca1377df9bd9b8de, type: 3}
+  keyboardMouseIcon: {fileID: 21300000, guid: 948410a07207b8b4cb2be6ba52ab0f6a, type: 3}
 --- !u!1 &4808964143914057226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1345,7 @@ GameObject:
   - component: {fileID: 2781132045620340067}
   - component: {fileID: 6936727603336077612}
   - component: {fileID: 6774003245006549585}
+  - component: {fileID: 8162693888239090603}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -1373,6 +1410,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8162693888239090603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808964143914057226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cde67f95b7bae40b692b0019fb64a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5809ef1e08b88b3449ddc88260600343, type: 2}
+  inputEvents: {fileID: 11400000, guid: cfdc1b0f87089e4479e5772f9423e929, type: 2}
+  imageUI: {fileID: 6774003245006549585}
+  controllerIcon: {fileID: 21300000, guid: 90bb85824309d2d4d8cdb0544041a973, type: 3}
+  keyboardMouseIcon: {fileID: 21300000, guid: 87d798d7d6ac0c24d97bc76743162889, type: 3}
 --- !u!1 &5197928290475047511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,6 +2116,7 @@ GameObject:
   - component: {fileID: 3192698732050336724}
   - component: {fileID: 3659891117630935876}
   - component: {fileID: 5124080502829841101}
+  - component: {fileID: 6350924704065279389}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -2126,6 +2181,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6350924704065279389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990315666771261262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cde67f95b7bae40b692b0019fb64a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5809ef1e08b88b3449ddc88260600343, type: 2}
+  inputEvents: {fileID: 11400000, guid: cfdc1b0f87089e4479e5772f9423e929, type: 2}
+  imageUI: {fileID: 5124080502829841101}
+  controllerIcon: {fileID: 21300000, guid: 734d62e201e3dda4ca1377df9bd9b8de, type: 3}
+  keyboardMouseIcon: {fileID: 21300000, guid: 948410a07207b8b4cb2be6ba52ab0f6a, type: 3}
 --- !u!1 &8091393462380723935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,6 +2248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e4d1c94677a714abd1563f34449663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayEvents: {fileID: 0}
   playerEvents: {fileID: 11400000, guid: 0d8792cedb6ac7641b8f28b7538198a7, type: 2}
   cameraEvents: {fileID: 11400000, guid: cdb49fb8064fc7d4284ecaeaa9e954e8, type: 2}
   interactionIcon: {fileID: 7896137334071003314}

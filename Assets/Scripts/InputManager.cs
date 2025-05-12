@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
+    private PlayerData playerData;
+
+    [SerializeField]
     private GameEvents inputEvents;
 
     [SerializeField]
@@ -44,6 +47,11 @@ public class InputManager : MonoBehaviour
         isRecording = false;
 
         Time.timeScale = 1;
+    }
+
+    private void Start()
+    {
+        ChangeControls(input);
     }
 
     private void ButtonEventsCallback(object data)
@@ -202,13 +210,13 @@ public class InputManager : MonoBehaviour
     {
         if (playerInput.currentControlScheme.Equals(keyboardScheme))
         {
-            inputEvents.Emit(new InputSchemeChanged(ControlScheme.KEYBOARD));
+            inputEvents.Emit(new InputSchemeChanged(Utils.ControlScheme.KEYBOARD));
+            playerData.SaveActiveScheme(Utils.ControlScheme.KEYBOARD);
         }
         else if (playerInput.currentControlScheme.Equals(gamepadScheme))
         {
-            inputEvents.Emit(new InputSchemeChanged(ControlScheme.GAMEPAD));
+            inputEvents.Emit(new InputSchemeChanged(Utils.ControlScheme.GAMEPAD));
+            playerData.SaveActiveScheme(Utils.ControlScheme.GAMEPAD);
         }
     }
 }
-
-public enum ControlScheme { KEYBOARD = 0, GAMEPAD = 1 };

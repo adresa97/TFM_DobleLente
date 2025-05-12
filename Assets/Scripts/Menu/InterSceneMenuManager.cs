@@ -10,6 +10,12 @@ public class InterSceneMenuManager : MonoBehaviour
     [SerializeField]
     private Utils.Scenes nextScene;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void OnEnable()
     {
         buttonEvents.AddListener(ButtonEventsCallback);

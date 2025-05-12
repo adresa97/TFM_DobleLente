@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c4d4cc9fc2d6e4cace8b20bae5cfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5809ef1e08b88b3449ddc88260600343, type: 2}
   inputEvents: {fileID: 11400000, guid: cfdc1b0f87089e4479e5772f9423e929, type: 2}
   buttonEvents: {fileID: 11400000, guid: 283c6674521db774b98dd68a654cba38, type: 2}
   input: {fileID: 5685948245508764635}
