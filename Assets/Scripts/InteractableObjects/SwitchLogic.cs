@@ -15,6 +15,9 @@ public abstract class SwitchLogic : MonoBehaviour
     private CableStatusChecker[] cableSegments;
 
     [SerializeField]
+    protected AudioSource soundPlayer;
+
+    [SerializeField]
     private MeshRenderer colorRenderer;
     private MaterialPropertyBlock colorProperty;
 

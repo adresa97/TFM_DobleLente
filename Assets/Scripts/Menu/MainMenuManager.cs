@@ -38,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenOptions()
     {
-
+        Utils.ChangeScene(Utils.Scenes.CREDITS);
     }
 
     private void ExitGame()

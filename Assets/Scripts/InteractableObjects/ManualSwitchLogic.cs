@@ -23,6 +23,8 @@ public class ManualSwitchLogic : SwitchLogic
             isPressed = true;
             SetOnColor();
 
+            soundPlayer.Play();
+
             if (HasBrokenCables()) StartCoroutine(CheckWhilePressed());
             else SendActivateSignal();
         }

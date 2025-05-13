@@ -27,6 +27,9 @@ public class DepthCameraMasterManager : MonoBehaviour
     private DepthCameraConstraintsManager constraints;
 
     [SerializeField]
+    private AudioSource soundPlayer;
+
+    [SerializeField]
     private float maxRecordTime;
     private float recordedTime;
     private float recordTime;
@@ -197,6 +200,7 @@ public class DepthCameraMasterManager : MonoBehaviour
             if (recordTime > lastSecond + 1)
             {
                 cameraToPlayerEvents.Emit(new NotifySecondHasBeenRecordedEvent());
+                soundPlayer.Play();
                 lastSecond++;
             }
 
@@ -222,6 +226,7 @@ public class DepthCameraMasterManager : MonoBehaviour
 
             if (recordTime > lastSecond + 1)
             {
+                soundPlayer.Play();
                 lastSecond++;
             }
 
@@ -247,11 +252,19 @@ public class DepthCameraMasterManager : MonoBehaviour
             memoryUpdater.ReplayState(recordTime);
 
             recordTime += recordInterval;
+
+            if (recordTime > lastSecond + 1)
+            {
+                soundPlayer.Play();
+                lastSecond++;
+            }
+
             yield return new WaitForSecondsRealtime(recordInterval);
         }
 
         recordedTime = 0;
         recordTime = 0;
+        lastSecond = 0;
         StopReplaying();
     }
 
@@ -262,11 +275,19 @@ public class DepthCameraMasterManager : MonoBehaviour
             inVisionObjectsManager.NotifyObjectsReplay(recordTime);
 
             recordTime += recordInterval;
+
+            if (recordTime > lastSecond + 1)
+            {
+                soundPlayer.Play();
+                lastSecond++;
+            }
+
             yield return new WaitForSecondsRealtime(recordInterval);
         }
 
         recordedTime = 0;
         recordTime = 0;
+        lastSecond = 0;
 
         shaderUpdater.DeactivateCamera();
         inVisionObjectsManager.NotifyCameraIsDeactivated();

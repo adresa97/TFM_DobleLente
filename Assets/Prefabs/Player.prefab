@@ -329,8 +329,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -443,12 +443,18 @@ MonoBehaviour:
     smooth: 0
     smoothTime: 5
     lockCursor: 1
-  m_StepInterval: 0
+  m_StepInterval: 5
   m_FootstepSounds:
   - {fileID: 0}
-  - {fileID: 0}
-  m_JumpSound: {fileID: 0}
-  m_LandSound: {fileID: 0}
+  - {fileID: 8300000, guid: 611440cfe2c16f240921a3703f95734d, type: 3}
+  - {fileID: 8300000, guid: 6cd1ad729d3b7c146a331dae01bc3362, type: 3}
+  - {fileID: 8300000, guid: a22a1414d6f091c4a91c91cf0fd01a68, type: 3}
+  - {fileID: 8300000, guid: 0335ea8be13260145b8ad59f4e3ca2c0, type: 3}
+  - {fileID: 8300000, guid: 6cccead2fdad3b746967ca7701dcea68, type: 3}
+  - {fileID: 8300000, guid: ba5888c26af151342a2abe2cb36f8272, type: 3}
+  - {fileID: 8300000, guid: 9f5c7749c02e20b45bae494fad2f1240, type: 3}
+  m_JumpSound: {fileID: 8300000, guid: d3137b79c69c4714f82db24f64f9cf76, type: 3}
+  m_LandSound: {fileID: 8300000, guid: 611440cfe2c16f240921a3703f95734d, type: 3}
   m_Head: {fileID: 2432023590721498468}
 --- !u!114 &5035421465036049660
 MonoBehaviour:
