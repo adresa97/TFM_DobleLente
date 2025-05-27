@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionPoints:
-  - {fileID: 8600720058384851742}
+  - {fileID: 4267252671054033788}
   objRenderer: {fileID: 7147723190834273524}
   isRealWorld: 0
 --- !u!1 &8184516212019926235
